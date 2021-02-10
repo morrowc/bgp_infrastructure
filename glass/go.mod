@@ -13,8 +13,8 @@ replace github.com/mellowdrifter/bgp_infrastructure/proto/glass => ../proto/glas
 require (
 	github.com/mellowdrifter/bgp_infrastructure/clidecode v0.0.0-00010101000000-000000000000
 	github.com/mellowdrifter/bgp_infrastructure/common v0.0.0-00010101000000-000000000000
-	github.com/mellowdrifter/bgp_infrastructure/proto/bgpsql v0.0.0-00010101000000-000000000000
-	github.com/mellowdrifter/bgp_infrastructure/proto/glass v0.0.0-00010101000000-000000000000
+	github.com/mellowdrifter/bgp_infrastructure/proto/bgpsql v0.0.0-20210207202020-0bdc4ef48918
+	github.com/mellowdrifter/bgp_infrastructure/proto/glass v0.0.0-20210207202020-0bdc4ef48918
 	github.com/smartystreets/goconvey v1.6.4 // indirect
 	google.golang.org/grpc v1.35.0
 	googlemaps.github.io/maps v1.3.1

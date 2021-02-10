@@ -11,6 +11,8 @@ import (
 	"net"
 	"os"
 	"path"
+	"sort"
+	"strings"
 	"sync"
 	"time"
 
@@ -243,8 +245,11 @@ func (s *server) Origin(ctx context.Context, r *pb.OriginRequest) (*pb.OriginRes
 func (s *server) Invalids(ctx context.Context, r *pb.InvalidsRequest) (*pb.InvalidResponse, error) {
 	log.Printf("Running Invalids for ASN %s", r.GetAsn())
 
+	// If the ASN is: AS65534 not 65534, do not error, repair the input.
+	asn := r.GetAsn()
+	asn = strings.Replace(asn, "AS", "", 1)
 	// check local cache
-	cache, ok := s.checkInvalidsCache(r.GetAsn())
+	cache, ok := s.checkInvalidsCache(asn)
 	if ok {
 		return &cache, nil
 	}
@@ -278,18 +283,18 @@ func (s *server) Invalids(ctx context.Context, r *pb.InvalidsRequest) (*pb.Inval
 	}
 
 	// an ASN query of zero means all ASNs.
-	if r.GetAsn() == "0" {
+	if asn == "0" {
 		return &resp, nil
 	}
 
 	// Otherwise just return the specific ASN and its invalids.
 	for _, v := range resp.GetAsn() {
-		if v.GetAsn() == r.GetAsn() {
+		if v.GetAsn() == asn {
 			return &pb.InvalidResponse{
 				Asn: []*pb.InvalidOriginator{
 					{
 						Asn: v.GetAsn(),
-						Ip:  v.GetIp(),
+						Ip:  sort.Strings(v.GetIp()),
 					},
 				},
 			}, nil

@@ -11,16 +11,16 @@ import (
 )
 
 const (
-	iasn      = 1
-	isourced  = 2
-	iroute    = 3
-	iorigin   = 4
-	iaspath   = 5
-	iroa      = 6
-	ilocation = 7
-	imap      = 8
-	itotal    = 9
-	iinvalids = 10
+	iasn = iota + 1
+	isourced
+	iroute
+	iorigin
+	iaspath
+	iroa
+	ilocation
+	imap
+	itotal
+	iinvalids
 )
 
 var (
